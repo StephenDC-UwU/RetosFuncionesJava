@@ -1,114 +1,43 @@
 package pruebas;
 
-import inventario.Inventario;
-import lista_objetos.Armas;
 
-import java.util.Scanner;
+import objeto.*;
+
+import java.util.ArrayList;
 
 public class PruebaInventario {
-
     public static void main(String[] args) {
-        System.out.println("El inventario del Guerrero");
-        System.out.println("""
-                Que deseas hacer:
-                1. Agregar un Arma
-                2. Editar un Arma
-                2. Mostrar todos los Objetos
-                3. Mostrar solo Armas, pociones o Tesoros
-                4. Salir
-                """);
+        Tipo arma = new Armas("Espada",50, Armas.Elemento.AGUA);
+        Tipo arma2 = new Armas("Arco",50, Armas.Elemento.FUEGO);
+        Tipo pocion = new Pociones("Pocion de Cura", 20);
+        Tipo tesoro = new Tesoros("Corona de Oro", 10);
 
-        Scanner input = new Scanner(System.in);
-        var inputNumber = input.nextInt();
-        input.nextLine();
+        arma.mostrarDetalles();
+        pocion.mostrarDetalles();
+        tesoro.mostrarDetalles();
 
+        Objeto objeto1 = new Objeto("Espada del Ocenao Infinito","Extraida del Oceano Indico", arma, Objeto.Rareza.EPICO);
+        Objeto objeto2 = new Objeto("Arco del Guerreo Olvidado","Extraida del Reino de Fuego", arma2, Objeto.Rareza.LEGENDARIO);
+        Objeto objeto3 = new Objeto("Bolsa de Oro", "Bolsa de un Viajero",tesoro, Objeto.Rareza.NORMAL);
+        Objeto objeto4 = new Objeto("Pocion de Vida","Pocion de Vida del Cura",tesoro, Objeto.Rareza.NORMAL);
 
+        ArrayList<Objeto> lista = new ArrayList<>();
+        lista.add(objeto1);
+        lista.add(objeto2);
+        lista.add(objeto3);
+        lista.add(objeto4);
 
-        while (inputNumber!= 4){
-
-            if (inputNumber==1) {
-                System.out.println("Agregando un Arma...");
-                agregarArma(input);
-            } else if (inputNumber==2) {
-                System.out.println("Editando un Arma");
-                editarArma(input);
-            }
-
-            System.out.println("El inventario del Guerrero");
-            System.out.println("""
-                Que deseas hacer:
-                1. Agregar un Arma
-                2. Editar un Arma
-                2. Mostrar todos los Objetos
-                3. Mostrar solo Armas, pociones o Tesoros
-                4. Salir
-                """);
-            inputNumber = input.nextInt();
-            input.nextLine();
-        }
-    }
-
-    private static void agregarArma(Scanner input) {
-        System.out.println("Nombre del Arma: ");
-        var nombre = input.nextLine();
-
-        System.out.println("Tipo de Arma (ESPADA, HACHA, ARCO): ");
-        var tipoInput = input.nextLine().toUpperCase(); // Convertir a mayúsculas para la comparación
-        Armas.TipoArma tipo;
-        try {
-            tipo = Armas.TipoArma.valueOf(tipoInput); // Convertir a TipoArma
-        } catch (IllegalArgumentException e) {
-            System.out.println("Tipo de arma no válido. Usa solo ESPADA, HACHA o ARCO.");
-            return; // Salir si el tipo no es válido
+        for (Objeto objeto: lista) {
+            System.out.println(objeto);
         }
 
-        System.out.println("Rareza del arma: ");
-        var rareza = input.nextLine();
-        System.out.println("Elemento que fue construido el arma: ");
-        var element = input.nextLine();
-        System.out.println("Daño del arma: ");
-        var damage = input.nextInt();
-        input.nextLine(); // Consumir el salto de línea
-
-        // Crear un objeto de Armas con el tipo enum
-        Inventario.agregarArmas(new Armas(nombre, tipo, rareza, damage, element));
-        System.out.println("Se ha agregado tu arma correctamente");
-
-        Inventario.mostrarArmas();
-    }
 
 
-    private static void editarArma(Scanner input) {
-        System.out.println("Cual arma quieres editar? (Id:)");
-        var idArma = input.nextInt();
-        input.nextLine();
-        System.out.println("Nombre del Arma: ");
-        var nombre = input.nextLine();
-
-        System.out.println("Tipo de Arma (ESPADA, HACHA, ARCO): ");
-        var tipoInput = input.nextLine().toUpperCase(); // Convertir a mayúsculas para la comparación
-        Armas.TipoArma tipo;
-        try {
-            tipo = Armas.TipoArma.valueOf(tipoInput); // Convertir a TipoArma
-        } catch (IllegalArgumentException e) {
-            System.out.println("Tipo de arma no válido. Usa solo ESPADA, HACHA o ARCO.");
-            return; // Salir si el tipo no es válido
-        }
-
-        System.out.println("Rareza del arma: ");
-        var rareza = input.nextLine();
-        System.out.println("Elemento que fue construido el arma: ");
-        var element = input.nextLine();
-        System.out.println("Daño del arma: ");
-        var damage = input.nextInt();
-        input.nextLine(); // Consumir el salto de línea
-
-        Inventario.editarArmas(idArma,new Armas(nombre,tipo,rareza,damage,element));
-        System.out.println("Se ha agregado correctamente");
-
-        Inventario.mostrarArmas();
 
     }
 
 
 }
+
+
+

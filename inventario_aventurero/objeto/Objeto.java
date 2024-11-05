@@ -4,22 +4,28 @@ public class Objeto {
     private static int contadorObjetos = 0;
     private int idObjeto;
     private String nombre;
-    private String tipo;
-    private String rareza;
+    private String descripcion;
+    protected Tipo tipo;
+    protected Rareza rareza;
 
-    public Objeto() {
-        this.idObjeto = ++Objeto.contadorObjetos;
+    public enum Rareza{
+        NORMAL,EPICO,RARO,LEGENDARIO
     }
 
-    public Objeto(String nombre, String tipo, String rareza) {
-        this();
+    public Objeto(String nombre, String descripcion, Tipo tipo, Rareza rareza) {
+        this.idObjeto = contadorObjetos++;
         this.nombre = nombre;
+        this.descripcion = descripcion;
         this.tipo = tipo;
         this.rareza = rareza;
     }
 
     public int getIdObjeto() {
         return idObjeto;
+    }
+
+    public void setIdObjeto(int idObjeto) {
+        this.idObjeto = idObjeto;
     }
 
     public String getNombre() {
@@ -30,19 +36,27 @@ public class Objeto {
         this.nombre = nombre;
     }
 
-    public String getTipo() {
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Tipo getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(Tipo tipo) {
         this.tipo = tipo;
     }
 
-    public String getRareza() {
+    public Rareza getRareza() {
         return rareza;
     }
 
-    public void setRareza(String rareza) {
+    public void setRareza(Rareza rareza) {
         this.rareza = rareza;
     }
 
@@ -51,8 +65,10 @@ public class Objeto {
         return "Objeto{" +
                 "idObjeto=" + idObjeto +
                 ", nombre='" + nombre + '\'' +
-                ", tipo='" + tipo + '\'' +
-                ", rareza='" + rareza + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", tipo=" + tipo +
+                ", rareza=" + rareza +
                 '}';
     }
 }
+
